@@ -5,10 +5,12 @@ interface BoardState {
   getBoard: () => void;
 }
 
-const useBoardStore = create((set) => ({
-  board: null,
+const useBoardStore = create<BoardState>((set) => ({
+  board: {
+    columns: new Map<TypedColumn, Column>()
+  },
   getBoard: () => {
-    
+
   }
   
 }))
