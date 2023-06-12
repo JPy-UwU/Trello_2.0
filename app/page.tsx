@@ -9,7 +9,6 @@ export default function Home() {
       
       {/* Board */}
       <Board />
-      <h1>Trello 2.0 clobe</h1>
     </main>
   )
 }
