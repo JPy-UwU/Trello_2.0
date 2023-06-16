@@ -2,14 +2,18 @@
 
 import { useState, Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { useModelStore } from '@/store/ModelStore';
 
 function Model() {
-  let [isOpen, setIsOpen] = useState(true)
+  const [isOpen, closeModel] = useModelStore((state) => [
+    state.isOpen,
+    state.closeModel,
+  ])
 
   return (
     // Use the `Transition` component at the root level
     <Transition show={isOpen} as={Fragment}>
-      <Dialog onClose={() => setIsOpen(false)}>
+      <Dialog onClose={closeModel}>
         {/*
           Use one Transition.Child to apply one transition to the backdrop...
         */}
