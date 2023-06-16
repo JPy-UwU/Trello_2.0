@@ -59,8 +59,12 @@ const Header = () => {
 
       <div className="flex items-center justify-center px-5 md:py-5">
         <p className="flex items-center p-5 py-2 text-sm font-light pr-5 shadow-xl rounded-xl w-fit bg-white italic max-w-3xl text-[#0055d1]">
-          <UserCircleIcon className="inline-block h-10 w-10 text-[#0055d1] mr-1" />
-          ChatGPT Connecting...
+          <UserCircleIcon className={`inline-block h-10 w-10 text-[#0055d1] mr-1 ${loading && "animate-spin"}`} />
+          {
+            suggestion && !loading
+            ? suggestion
+            : "GPT is summarizing your tasks of the day..."
+          }
         </p>
       </div>
     </header>

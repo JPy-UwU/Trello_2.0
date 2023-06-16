@@ -28,7 +28,7 @@ export const useBoardStore = create<BoardState>((set) => ({
       todo.$id,
       {
         title: todo.title,
-        status: columnId,
+        status: columnId
       }
     ) 
   },
