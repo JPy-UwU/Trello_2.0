@@ -3,12 +3,18 @@
 import { useState, Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useModelStore } from '@/store/ModelStore';
+import { useBoardStore } from '@/store/BoardStore';
 
 function Model() {
+  const [newTaskInput, setNewTaskInput] = useBoardStore((state) => [
+    state.newTaskInput,
+    state.setNewTaskInput,
+  ]);
+
   const [isOpen, closeModel] = useModelStore((state) => [
     state.isOpen,
     state.closeModel,
-  ])
+  ]);
 
   return (
     // Use the `Transition` component at the root level
