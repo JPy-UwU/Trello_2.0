@@ -1,11 +1,14 @@
 'use client';
 
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useModelStore } from '@/store/ModelStore';
 import { useBoardStore } from '@/store/BoardStore';
+import TaskTypeRadioGroup from './TaskTypeRadioGroup';
 
 function Model() {
+  const imagePickerRef = useRef<HTMLInputElement>(null);
+
   const [newTaskInput, setNewTaskInput] = useBoardStore((state) => [
     state.newTaskInput,
     state.setNewTaskInput,
@@ -63,6 +66,21 @@ function Model() {
                     className="w-full border border-gray-300 rounded-md outline-none p-5"
                   />
                 </div>
+
+                <TaskTypeRadioGroup />
+
+                <div>
+                  <input
+                    type="file" 
+                    hidden
+                    ref={imagePickerRef}
+                    onChange={(e) => {
+                      if(!e.target.files![0].type.startsWith("image/")) return;
+                      setImage(e.target.files![0]);
+                    }}
+                  />
+                </div>
+
               </Dialog.Panel>
             </Transition.Child>
           </div>
