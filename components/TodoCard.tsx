@@ -1,4 +1,4 @@
-import getUrl from "@/lib/getURL";
+import getUrl from "@/lib/getUrl";
 import { useBoardStore } from "@/store/BoardStore";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
