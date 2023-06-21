@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Fragment, useRef } from 'react'
+import { useState, Fragment, useRef, FormEvent } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Image from 'next/image';
 
@@ -12,23 +12,35 @@ import { PhotoIcon } from '@heroicons/react/24/solid';
 function Model() {
   const imagePickerRef = useRef<HTMLInputElement>(null);
 
-  const [image, setImage, newTaskInput, setNewTaskInput] = useBoardStore((state) => [
+  const [addTask, image, setImage, newTaskInput, setNewTaskInput, newTaskType] = useBoardStore((state) => [
+    state.addTask,
     state.image,
     state.setImage,
     state.newTaskInput,
     state.setNewTaskInput,
+    state.newTaskType,
   ]);
 
   const [isOpen, closeModel] = useModelStore((state) => [
     state.isOpen,
     state.closeModel,
   ]);
+  
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!newTaskInput) return;
+    
+    addTask(newTaskInput, newTaskType, image);
+    setImage(null);
+    closeModel();
+  }
 
   return (
     // Use the `Transition` component at the root level
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog 
         as="form"
+        onSubmit={e => handleSubmit}
         className="relative z-10"
         onClose={closeModel}
       >
@@ -75,9 +87,10 @@ function Model() {
 
                 <TaskTypeRadioGroup />
 
-                <div>
+                <div className="mt-4">
                   <button
                     type="button"
+                    disabled={!newTaskInput}
                     onClick={() => {
                       imagePickerRef.current?.click()
                     }}
